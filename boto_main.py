@@ -9,13 +9,13 @@ instance_flavor = 'm1.medium'
 security_groups = ['ssh', 'http', 'default']
 instance_profile_name = 'temp_test1'
 volume_size = '50'
-templeton_key_pair = 'Temp'
+templeton_key_pair = 'my'
 
 def getConn():
 	region = RegionInfo(name='melbourne', endpoint='nova.rc.nectar.org.au')
 
-	access_key = '9282939c7c2145a5b8f1af1fb1697839'
-	secret_access_key = '72ea3f5b95c34bc2a61c6da2d331d713'
+	access_key = '8c7dc5dc3fe74a89b368ae2441cd0ce4'
+	secret_access_key = 'c7bf6a949a244a45aa06f71712996aee'
 
 	conn = boto.connect_ec2(aws_access_key_id=access_key	,
 	aws_secret_access_key=secret_access_key, is_secure=True,
@@ -37,7 +37,7 @@ def getInstances(conn):
 	reservations = conn.get_all_reservations()
 
 	instance = [i for r in reservations for i in r.instances]
-	
+
 	return instance
 
 
@@ -52,7 +52,7 @@ createInstance(conn, 4)
 
 
 #instance_ids = getInstances(conn)
-#TODO fix this by checking status of instance 
+#TODO fix this by checking status of instance
 time.sleep(200)
 
 #Creating new volume
@@ -64,5 +64,3 @@ for i in inst:
 	#TODO fix this by checking status of volume
 	time.sleep(100)
 	conn.attach_volume(vol.id, i.id, "/dev/sdc")
-
-
